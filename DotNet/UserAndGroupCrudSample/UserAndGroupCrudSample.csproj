@@ -9,6 +9,6 @@
     <None Remove="thoughtspot.rest.api.sdk" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="thoughtspot.rest.api.sdk" Version="1.6.3-beta" />
+    <PackageReference Include="thoughtspot.rest.api.sdk" Version="1.9.0" />
   </ItemGroup>
 </Project>
