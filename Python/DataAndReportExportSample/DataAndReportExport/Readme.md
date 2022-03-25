@@ -5,6 +5,12 @@ This sample project is build based on following use case
 
 ## Setup
 
+Install the RestAPI SDK
+
+```
+pip install thoughtspot-rest-api-sdk
+```
+
 Open the project in PyCharm and update the following in StartHere.cs
 
 Thoughtspot cluster URL and credentials
