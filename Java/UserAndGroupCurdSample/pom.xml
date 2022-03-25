@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.github.tssrikanth</groupId>
-            <artifactId>rest-api-sdk-temp</artifactId>
-            <version>100.1.1-temp</version>
+            <groupId>io.github.thoughtspot</groupId>
+            <artifactId>rest-api-sdk-lib</artifactId>
+            <version>1.9.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
