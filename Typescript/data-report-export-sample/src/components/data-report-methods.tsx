@@ -1,32 +1,28 @@
 import {
-  AccessLevelEnum,
   Client,
   DataController,
   DEFAULT_CONFIGURATION,
+  ExportAssociatedEnum,
   FormatType1Enum,
+  FormatTypeEnum,
   MetadataController,
-  SessionController,
+  OrientationEnum,
+  ReportController,
   Type10Enum,
+  Type16Enum,
 } from "@thoughtspot/rest-api-sdk";
 import { useEffect, useState } from "react";
-import "./App.css";
-import { GridView } from "./components/gridview";
-
-const App = () => {
+import "../App.css";
+import { GridView } from "./gridview";
+import { ControllerBase } from "./controller-base";
+const DataAndReports = () => {
   const [liveBoards, setLiveBoards] = useState([]);
   const selectedLiveBoards: Array<any> = [];
-
-  DEFAULT_CONFIGURATION.baseUrl = "https://10.79.142.102";
-  DEFAULT_CONFIGURATION.acceptLanguage = "*";
-
   let client = new Client(DEFAULT_CONFIGURATION);
-  const updateAcessToken = (token: string | undefined) => {
-    if (token) {
-      DEFAULT_CONFIGURATION.accessToken = token;
-      client = new Client(DEFAULT_CONFIGURATION);
-    }
-  };
 
+  /**
+   * Get liveboard data.
+   */
   const getLiveboards = async () => {
     const metadataController = new MetadataController(client);
     const liveBoards: any = await metadataController.searchObjectHeader({
@@ -35,14 +31,15 @@ const App = () => {
     setLiveBoards(liveBoards.result.headers);
   };
 
+  /**
+   * Get AccessToken.
+   */
   const getAccessToken = async () => {
-    const sessionController = new SessionController(client);
-    const tokenRes = await sessionController.getToken({
-      userName: "tsadmin",
-      password: "admin",
-      accessLevel: AccessLevelEnum.FULL,
-    });
-    updateAcessToken(tokenRes.result.token?.toString());
+    let token: string | undefined = await ControllerBase();
+    if (token) {
+      DEFAULT_CONFIGURATION.accessToken = token;
+      client = new Client(DEFAULT_CONFIGURATION);
+    }
     getLiveboards();
   };
 
@@ -50,6 +47,9 @@ const App = () => {
     getAccessToken();
   }, []);
 
+  /**
+   *  return Selected Liveboard name.
+   */
   const getLiveBoardName = (): string => {
     const liveboards: any = liveBoards.filter(
       (val: any) => val.id === selectedLiveBoards[0]
@@ -58,6 +58,9 @@ const App = () => {
     return liveboards[0].name;
   };
 
+  /**
+   *  Download Liveboard Data with JSON format.
+   */
   const exportLiveboard = async () => {
     const dataController = new DataController(client);
     const exportLiveBoardData: any = await dataController.liveboardData({
@@ -78,6 +81,37 @@ const App = () => {
     document.body.removeChild(element);
   };
 
+  /**
+   *  Download Liveboard Data with PDF format.
+   */
+
+  const downloadLiveboardReport = async () => {
+    const reportController = new ReportController(client);
+    let ids:[String] = selectedLiveBoards[0].toString()
+    const exportLiveBoardData: any = await reportController.liveboardReport({
+      id: [selectedLiveBoards[0]].toString(),
+      type: Type16Enum.PDF,
+      pdfOptions: {
+        orientation: OrientationEnum.LANDSCAPE,
+      },
+    });
+    const fileName = getLiveBoardName();
+
+    //Convert the Byte Data to BLOB object.
+    let blob = new Blob([exportLiveBoardData.result], {
+      type: "application/octetstream",
+    });
+
+    let url = window.URL || window.webkitURL;
+    let link = url.createObjectURL(blob);
+    var element = document.createElement("a");
+    element.setAttribute("download", fileName);
+    element.setAttribute("href", link);
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   const pushSelectedLiveboard = (event: any) => {
     selectedLiveBoards.splice(0, selectedLiveBoards.length);
     if (event.target.checked) selectedLiveBoards.push(event.target.value);
@@ -88,7 +122,10 @@ const App = () => {
       <div className="headDownload">
         LIVEBOARDS
         <button onClick={exportLiveboard} className="runBtn">
-          Download <i className="fa fa-download"></i>
+          Download JSON <i className="fa fa-download"></i>
+        </button>
+        <button onClick={downloadLiveboardReport} className="dataBtn">
+          Download PDF <i className="fa fa-download"></i>
         </button>
       </div>
       <div className="content">
@@ -105,4 +142,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default DataAndReports;

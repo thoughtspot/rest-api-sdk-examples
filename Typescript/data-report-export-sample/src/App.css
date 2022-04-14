@@ -7,9 +7,17 @@
     padding: 5px 15px;
     border-radius: 5px;
     position: fixed;
-    left: 92%;
+    left: 90%;
 }
 
+.dataBtn {
+  background: #000;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  position: relative;
+  left:76%;
+}
 .content {
   margin-top: 20px;
 }
