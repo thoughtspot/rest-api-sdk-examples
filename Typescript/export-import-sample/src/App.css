@@ -1,0 +1,26 @@
+/* (X) DOES NOT MATTER */
+html,
+body {
+  font-family: arial, sans-serif;
+}
+
+.runBtn {
+  background: #000;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  position: fixed;
+  left: 92%;
+}
+
+.dataBtn {
+  background: #000;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  position: relative;
+  left: 70%;
+}
+.content {
+  margin-top: 20px;
+}
