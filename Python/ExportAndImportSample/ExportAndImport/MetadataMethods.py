@@ -5,7 +5,7 @@ import json
 
 from restapisdk.models.export_associated_enum import ExportAssociatedEnum
 from restapisdk.models.force_create_enum import ForceCreateEnum
-from restapisdk.models.import_policy_enum import ImportPolicyEnum
+from restapisdk.models.import_object_tml_import_policy_enum import ImportObjectTMLImportPolicyEnum
 from restapisdk.models.name_and_id_input import NameAndIdInput
 from restapisdk.models.tspublic_rest_v_2_metadata_header_search_request \
     import TspublicRestV2MetadataHeaderSearchRequest
@@ -52,7 +52,7 @@ class MetadataMethods(ControllerBase):
 
         metadataController = client.metadata
         body = TspublicRestV2MetadataTmlImportRequest()
-        body.import_policy = ImportPolicyEnum.PARTIAL
+        body.import_policy = ImportObjectTMLImportPolicyEnum.VALIDATE_ONLY
         body.object_tml = p_Tmls
         body.force_create = ForceCreateEnum.TRUE
 
