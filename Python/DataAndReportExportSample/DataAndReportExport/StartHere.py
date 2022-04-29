@@ -3,10 +3,8 @@
 
 import os
 
-from DataAndReportExportSample.DataAndReportExport.ControllerBase \
-    import ControllerBase
-from DataAndReportExportSample.DataAndReportExport.DataAndReportMethods\
-    import DataAndReportExport
+from Python.DataAndReportExportSample.DataAndReportExport.ControllerBase import ControllerBase
+from Python.DataAndReportExportSample.DataAndReportExport.DataAndReportMethods import DataAndReportExport
 
 
 def ResultToFile(result, filePath, liveboardId):
@@ -26,9 +24,9 @@ def ResultToFile(result, filePath, liveboardId):
 class StartHere:
     def __init__(self):
         # Provide the host and credentials for login
-        self.v_BaseURL = "https://your-testcluster.thoughtspot.com"
-        self.v_UserName = "testuser"
-        self.v_Password = "testpassword"
+        self.v_BaseURL = "http://172.19.193.54:8088/"
+        self.v_UserName = "tsadmin"
+        self.v_Password = "admin"
 
     def DataExport(self):
         client = ControllerBase.getClient(

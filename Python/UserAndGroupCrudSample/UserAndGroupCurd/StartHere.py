@@ -1,24 +1,23 @@
 #! /usr/bin/env python3
 # pylint: disable= no-name-in-module
+import json
 
 from restapisdk.models.tspublic_rest_v_2_user_create_request \
     import TspublicRestV2UserCreateRequest
 
-from UserAndGroupCrudSample.UserAndGroupCurd.ControllerBase \
+from Python.UserAndGroupCrudSample.UserAndGroupCurd.ControllerBase \
     import ControllerBase
-from UserAndGroupCrudSample.UserAndGroupCurd.GroupMethods \
-    import GroupMethods
-from UserAndGroupCrudSample.UserAndGroupCurd.UserMethods \
-    import UserMethods
+from Python.UserAndGroupCrudSample.UserAndGroupCurd.GroupMethods import GroupMethods
+from Python.UserAndGroupCrudSample.UserAndGroupCurd.UserMethods import UserMethods
 
 
 class StartHere:
 
     def __init__(self):
         # Provide the host and credentials for login
-        self.v_BaseURL = "https://your-testcluster.thoughtspot.com"
-        self.v_UserName = "testuser"
-        self.v_Password = "testpassword"
+        self.v_BaseURL = "http://172.19.193.54:8088/"
+        self.v_UserName = "tsadmin"
+        self.v_Password = "admin"
 
     def userOperations(self):
         try:
@@ -27,6 +26,7 @@ class StartHere:
 
             # List the active users in the cluster
             v_Name = UserMethods.searchActiveUsers(self, client)
+
             count = 0
             for name in v_Name:
 

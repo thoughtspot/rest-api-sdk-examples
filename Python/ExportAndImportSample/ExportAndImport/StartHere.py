@@ -5,17 +5,19 @@ import glob
 import json
 import os
 
-from ExportAndImportSample.ExportAndImport.ControllerBase \
-    import ControllerBase
-from ExportAndImportSample.ExportAndImport.MetadataMethods \
-    import MetadataMethods
+from Python.ExportAndImportSample.ExportAndImport.ControllerBase import ControllerBase
+from Python.ExportAndImportSample.ExportAndImport.MetadataMethods import MetadataMethods
+
 
 class StartHere:
     def __init__(self):
         # Provide the host and credentials for login
-        self.v_BaseURL = "https://your-testcluster.thoughtspot.com"
-        self.v_UserName = "testuser"
-        self.v_Password = "testpassword"
+        # self.v_BaseURL = "https://your-testcluster.thoughtspot.com"
+        # self.v_UserName = "testuser"
+        # self.v_Password = "testpassword"
+        self.v_BaseURL = "http://172.19.193.54:8088/"
+        self.v_UserName = "tsadmin"
+        self.v_Password = "admin"
 
     def TMLToFile(self, result, filePath):
         filename = ''
@@ -67,9 +69,12 @@ class StartHere:
 
         # Read the TMLs from a folder
         tmls = self.TMLFromFile(filePath)
-
+        newTml = ''
+        for tml in tmls:
+            newTml = tml
+            break
         # Import TML received from above call
-        importResult = MetadataMethods.ImportObject(self, client, tmls)
+        importResult = MetadataMethods.ImportObject(self, client, newTml)
         print('import response::' + importResult)
 
     def TMLFromFile(self, filePath):

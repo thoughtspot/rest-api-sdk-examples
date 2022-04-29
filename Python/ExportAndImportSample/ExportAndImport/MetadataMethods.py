@@ -3,19 +3,18 @@
 
 import json
 
-from restapisdk.models.export_associated_enum import ExportAssociatedEnum
-from restapisdk.models.force_create_enum import ForceCreateEnum
+from restapisdk.models.export_object_tml_export_associated_enum import ExportObjectTMLExportAssociatedEnum
 from restapisdk.models.import_object_tml_import_policy_enum import ImportObjectTMLImportPolicyEnum
 from restapisdk.models.name_and_id_input import NameAndIdInput
+from restapisdk.models.search_object_header_type_enum import SearchObjectHeaderTypeEnum
 from restapisdk.models.tspublic_rest_v_2_metadata_header_search_request \
     import TspublicRestV2MetadataHeaderSearchRequest
 from restapisdk.models.tspublic_rest_v_2_metadata_tml_export_request \
     import TspublicRestV2MetadataTmlExportRequest
 from restapisdk.models.tspublic_rest_v_2_metadata_tml_import_request \
     import TspublicRestV2MetadataTmlImportRequest
-from restapisdk.models.type_10_enum import Type10Enum
 
-from ExportAndImportSample.ExportAndImport.ControllerBase \
+from Python.ExportAndImportSample.ExportAndImport.ControllerBase \
     import ControllerBase
 
 
@@ -25,11 +24,11 @@ class MetadataMethods(ControllerBase):
         metadataController = client.metadata
         body = TspublicRestV2MetadataHeaderSearchRequest()
         body.output_fields = ['id']
-        body.offset = 0
+        body.offset = 3
         body.created_by = []
         body.created_by.append(NameAndIdInput())
         body.created_by[0].name = p_Name
-        body.mtype = Type10Enum.LIVEBOARD
+        body.mtype = SearchObjectHeaderTypeEnum.LIVEBOARD
         searchIds = []
         result = metadataController.search_object_header(body)
         data_dict = json.loads(result)
@@ -43,7 +42,7 @@ class MetadataMethods(ControllerBase):
 
         body = TspublicRestV2MetadataTmlExportRequest()
         body.id = searchIds
-        body.export_associated = ExportAssociatedEnum.TRUE
+        body.export_associated = ExportObjectTMLExportAssociatedEnum.TRUE
 
         result = metadataController.export_object_tml(body)
         return result
@@ -54,7 +53,6 @@ class MetadataMethods(ControllerBase):
         body = TspublicRestV2MetadataTmlImportRequest()
         body.import_policy = ImportObjectTMLImportPolicyEnum.VALIDATE_ONLY
         body.object_tml = p_Tmls
-        body.force_create = ForceCreateEnum.TRUE
 
         result = metadataController.import_object_tml(body)
         return result

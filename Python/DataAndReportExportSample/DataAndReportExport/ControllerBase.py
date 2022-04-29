@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 # pylint: disable= no-name-in-module
-
 from restapisdk.configuration import Environment
 from restapisdk.models.tspublic_rest_v_2_session_gettoken_request \
     import TspublicRestV2SessionGettokenRequest
