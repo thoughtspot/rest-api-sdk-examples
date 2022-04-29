@@ -12,12 +12,9 @@ from Python.ExportAndImportSample.ExportAndImport.MetadataMethods import Metadat
 class StartHere:
     def __init__(self):
         # Provide the host and credentials for login
-        # self.v_BaseURL = "https://your-testcluster.thoughtspot.com"
-        # self.v_UserName = "testuser"
-        # self.v_Password = "testpassword"
-        self.v_BaseURL = "http://172.19.193.54:8088/"
-        self.v_UserName = "tsadmin"
-        self.v_Password = "admin"
+        self.v_BaseURL = "https://your-testcluster.thoughtspot.com"
+        self.v_UserName = "testuser"
+        self.v_Password = "testpassword"
 
     def TMLToFile(self, result, filePath):
         filename = ''
