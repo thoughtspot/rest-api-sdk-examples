@@ -56,12 +56,12 @@ class StartHere:
             userCreateBody.append(body)
             result = UserMethods.CreateNewUser(self, client, userCreateBody)
             for user in result:
-                print("User detail: " + user.name)
+                print("User details: " + user.name)
 
             # Create a group if it does not exist
             groupName = "Sample Group"
             result = GroupMethods.CreateNewGroup(self, client, groupName)
-            print('group detail::', result.name)
+            print('group details::', result.name)
 
             # Add users to the group
             GroupMethods.AddSomeUserToGroup(
