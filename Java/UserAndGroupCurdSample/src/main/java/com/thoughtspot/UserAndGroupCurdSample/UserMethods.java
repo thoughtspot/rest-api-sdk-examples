@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.gson.Gson;
 import localhost.RESTAPISDKClient;
+import localhost.controllers.GroupController;
 import localhost.controllers.UserController;
 import localhost.exceptions.ApiException;
-import localhost.models.StateEnum;
-import localhost.models.TspublicRestV2UserCreateRequest;
-import localhost.models.TspublicRestV2UserSearchRequest;
-import localhost.models.UserResponse;
+import localhost.models.*;
 
 /**
  * User CRUD operations.
@@ -37,11 +36,17 @@ public class UserMethods extends ControllerBase {
 
         TspublicRestV2UserSearchRequest tspublicRestV2UserSearchRequest =
                 new TspublicRestV2UserSearchRequest();
-        tspublicRestV2UserSearchRequest.setState(StateEnum.ACTIVE);
+        tspublicRestV2UserSearchRequest.setState(SearchUsersStateEnum.ACTIVE);
 
-        List<UserResponse> result = userController.searchUsers(tspublicRestV2UserSearchRequest);
+        String user = (String) userController.searchUsers(tspublicRestV2UserSearchRequest);
 
-        List<String> names = result.stream().map(
+        Gson gson = new Gson();
+        List<UserResponse> userResponse = gson.fromJson(
+                user,
+                new com.google.gson.reflect.TypeToken<List<UserResponse>>() {
+                }.getType());
+
+        List<String> names = userResponse.stream().map(
                 name -> name.getName()).collect(Collectors.toList());
 
         return names;
@@ -68,5 +73,21 @@ public class UserMethods extends ControllerBase {
         }
 
         return result;
+    }
+
+    /**
+     * Create new user.
+     *
+     * @param client RESTAPISDKClient.
+     * @return list of user response objects.
+     * @throws IOException .
+     * @throws ApiException .
+     */
+    public Boolean deleteUser(
+            RESTAPISDKClient client, UserNameAndID user)
+            throws IOException, ApiException {
+
+        UserController userController = client.getUserController();
+        return userController.deleteUser(user.getName(), null);
     }
 }

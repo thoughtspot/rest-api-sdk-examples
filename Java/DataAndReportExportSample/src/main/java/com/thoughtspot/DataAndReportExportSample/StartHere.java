@@ -83,7 +83,7 @@ public final class StartHere {
             String objectId = "33248a57-cc70-4e39-9199-fb5092283381";
             String vizId = "730496d6-6903-4601-937e-2c691821af3c";
 
-            //Export TML for the list of object ids received from above call
+            //Export TML for the objectId and vizId.
             Object result = dataAndReportMethods.getLiveboardData(client, objectId, vizId);
 
             //Write the TMLs into file on disk
@@ -93,6 +93,15 @@ public final class StartHere {
             System.out.println(String.format("Data for object with id %s and vizId %s "
                     + "has been written to file %s/%s.dat", objectId, vizId, filePath, objectId));
 
+            //Export PDF data for the objectId.
+            objectId = "d0e16150-6a70-4c6c-8b4b-0afc4915d752";
+            result = dataAndReportMethods.testAnswerReport(client, objectId);
+
+            //Write the PDF data into file on disk
+            resultToFile(result, filePath, objectId);
+
+            System.out.println(String.format("PDF report for object with id %s "
+                    + "has been written to file %s/%s.dat", objectId, filePath, objectId));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

@@ -7,14 +7,7 @@ import java.util.List;
 import localhost.RESTAPISDKClient;
 import localhost.controllers.GroupController;
 import localhost.exceptions.ApiException;
-import localhost.models.GroupResponse;
-import localhost.models.PrivilegeEnum;
-import localhost.models.TspublicRestV2GroupAdduserRequest;
-import localhost.models.TspublicRestV2GroupCreateRequest;
-import localhost.models.TspublicRestV2UserCreateRequest;
-import localhost.models.Type5Enum;
-import localhost.models.UserNameAndIDInput;
-import localhost.models.Visibility3Enum;
+import localhost.models.*;
 
 /**
  * Group CRUD operations.
@@ -47,13 +40,13 @@ public class GroupMethods {
 
                 tspublicRestV2GroupCreateRequest.setName(name);
                 tspublicRestV2GroupCreateRequest.setDisplayName(name);
-                tspublicRestV2GroupCreateRequest.setVisibility(Visibility3Enum.DEFAULT);
-                List<PrivilegeEnum> privilegeEnum = new ArrayList<>();
-                privilegeEnum.add(PrivilegeEnum.DEVELOPER);
-                privilegeEnum.add(PrivilegeEnum.DATAMANAGEMENT);
-                privilegeEnum.add(PrivilegeEnum.EXPERIMENTALFEATUREPRIVILEGE);
+                tspublicRestV2GroupCreateRequest.setVisibility(CreateGroupVisibilityEnum.DEFAULT);
+                List<CreateGroupPrivilegesEnum> privilegeEnum = new ArrayList<>();
+                privilegeEnum.add(CreateGroupPrivilegesEnum.DEVELOPER);
+                privilegeEnum.add(CreateGroupPrivilegesEnum.DATAMANAGEMENT);
+                privilegeEnum.add(CreateGroupPrivilegesEnum.EXPERIMENTALFEATUREPRIVILEGE);
                 tspublicRestV2GroupCreateRequest.setPrivileges(privilegeEnum);
-                tspublicRestV2GroupCreateRequest.setType(Type5Enum.LOCAL_GROUP);
+                tspublicRestV2GroupCreateRequest.setType(CreateGroupTypeEnum.LOCAL_GROUP);
 
                 result = groupController.createGroup(tspublicRestV2GroupCreateRequest);
             }
@@ -94,4 +87,19 @@ public class GroupMethods {
         return result;
     }
 
+    /**
+     *
+     * @param client RESTAPISDKClient
+     * @param group group name and id
+     * @return returns true when group deleted successfully.
+     * @throws IOException .
+     * @throws ApiException .
+     */
+    public Boolean deleteGroup(
+            RESTAPISDKClient client, UserNameAndID group)
+            throws IOException, ApiException {
+
+        GroupController groupController = client.getGroupController();
+        return groupController.deleteGroup(group.getName(), null);
+    }
 }

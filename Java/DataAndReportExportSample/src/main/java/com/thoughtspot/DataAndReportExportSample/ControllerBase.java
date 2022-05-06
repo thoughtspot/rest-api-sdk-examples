@@ -11,7 +11,7 @@ import localhost.Environment;
 import localhost.RESTAPISDKClient;
 import localhost.controllers.SessionController;
 import localhost.exceptions.ApiException;
-import localhost.models.AccessLevelEnum;
+import localhost.models.GetTokenAccessLevelEnum;
 import localhost.models.SessionLoginResponse;
 import localhost.models.TspublicRestV2SessionGettokenRequest;
 
@@ -42,7 +42,7 @@ public class ControllerBase {
                 new TspublicRestV2SessionGettokenRequest();
         tspublicRestV2SessionGettokenRequest.setUserName(userName);
         tspublicRestV2SessionGettokenRequest.setPassword(password);
-        tspublicRestV2SessionGettokenRequest.setAccessLevel(AccessLevelEnum.FULL);
+        tspublicRestV2SessionGettokenRequest.setAccessLevel(GetTokenAccessLevelEnum.FULL);
         tspublicRestV2SessionGettokenRequest.setTokenExpiryDuration("6000");
 
         SessionLoginResponse result =

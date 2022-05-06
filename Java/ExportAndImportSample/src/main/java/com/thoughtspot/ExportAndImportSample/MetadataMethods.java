@@ -13,14 +13,14 @@ import com.google.gson.internal.LinkedTreeMap;
 import localhost.RESTAPISDKClient;
 import localhost.controllers.MetadataController;
 import localhost.exceptions.ApiException;
-import localhost.models.ExportAssociatedEnum;
-import localhost.models.ForceCreateEnum;
-import localhost.models.ImportPolicyEnum;
+import localhost.models.ExportObjectTMLExportAssociatedEnum;
+import localhost.models.ImportObjectTMLForceCreateEnum;
+import localhost.models.ImportObjectTMLImportPolicyEnum;
 import localhost.models.NameAndIdInput;
+import localhost.models.SearchObjectHeaderTypeEnum;
 import localhost.models.TspublicRestV2MetadataHeaderSearchRequest;
 import localhost.models.TspublicRestV2MetadataTmlExportRequest;
 import localhost.models.TspublicRestV2MetadataTmlImportRequest;
-import localhost.models.Type10Enum;
 
 /**
  * Metadata CRUD operations.
@@ -43,7 +43,7 @@ public class MetadataMethods extends ControllerBase {
         TspublicRestV2MetadataHeaderSearchRequest tspublicRestV2MetadataHeaderSearchRequest =
                 new TspublicRestV2MetadataHeaderSearchRequest();
         //Add type of object
-        tspublicRestV2MetadataHeaderSearchRequest.setType(Type10Enum.LIVEBOARD);
+        tspublicRestV2MetadataHeaderSearchRequest.setType(SearchObjectHeaderTypeEnum.LIVEBOARD);
 
         //Include only id in the output
         tspublicRestV2MetadataHeaderSearchRequest.setOutputFields(Collections.singletonList("id"));
@@ -57,7 +57,7 @@ public class MetadataMethods extends ControllerBase {
         //Add the created by name
         NameAndIdInput nameAndIdInput = new NameAndIdInput();
         nameAndIdInput.setName(name);
-        tspublicRestV2MetadataHeaderSearchRequest.setCreatedBy(Collections.singletonList(
+        tspublicRestV2MetadataHeaderSearchRequest.setAuthor(Collections.singletonList(
                 nameAndIdInput));
 
         //Send search request based on the inputs above
@@ -94,7 +94,8 @@ public class MetadataMethods extends ControllerBase {
         TspublicRestV2MetadataTmlExportRequest tspublicRestV2MetadataTmlExportRequest =
                 new TspublicRestV2MetadataTmlExportRequest();
         tspublicRestV2MetadataTmlExportRequest.setId(id);
-        tspublicRestV2MetadataTmlExportRequest.setExportAssociated(ExportAssociatedEnum.ENUM_TRUE);
+        tspublicRestV2MetadataTmlExportRequest
+                .setExportAssociated(ExportObjectTMLExportAssociatedEnum.ENUM_TRUE);
 
         Object result = metadataController.exportObjectTML(tspublicRestV2MetadataTmlExportRequest);
 
@@ -118,8 +119,10 @@ public class MetadataMethods extends ControllerBase {
         TspublicRestV2MetadataTmlImportRequest tspublicRestV2MetadataTmlImportRequest =
                 new TspublicRestV2MetadataTmlImportRequest();
         tspublicRestV2MetadataTmlImportRequest.setObjectTML(tmls);
-        tspublicRestV2MetadataTmlImportRequest.setImportPolicy(ImportPolicyEnum.PARTIAL);
-        tspublicRestV2MetadataTmlImportRequest.setForceCreate(ForceCreateEnum.ENUM_TRUE);
+        tspublicRestV2MetadataTmlImportRequest
+                .setImportPolicy(ImportObjectTMLImportPolicyEnum.VALIDATE_ONLY);
+        tspublicRestV2MetadataTmlImportRequest
+                .setForceCreate(ImportObjectTMLForceCreateEnum.ENUM_TRUE);
 
         Object result = metadataController.importObjectTML(tspublicRestV2MetadataTmlImportRequest);
 
