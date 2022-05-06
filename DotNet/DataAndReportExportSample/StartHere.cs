@@ -13,6 +13,7 @@ namespace DataAndReportExport
 {
     class StartHere
     {
+        //Provide the host and credentials for login
         public const string v_BaseURL = "https://your-testcluster.thoughtspot.com";
         public const string v_UserName = "testuser";
         public const string v_Password = "testpassword";
@@ -37,10 +38,12 @@ namespace DataAndReportExport
 
                 var DataAndReportMethods = new DataAndReportMethods();
 
-                string objectId = "bea79810-145f-4ad0-a02c-4177a6e7d861";
+                //string objectId = "bea79810-145f-4ad0-a02c-4177a6e7d861";
+                string objectId = "327f4d60-c502-43b0-b1d4-c73df5031a2e";
 
                 //set the value as null to not consider vizid
-                string vizId = "4394f4b7-7bce-4031-ba27-cea587f295ec";
+                //string vizId = "4394f4b7-7bce-4031-ba27-cea587f295ec";
+                string vizId = "8fbf93e6-54ba-4a20-b2bb-4afe8dca5321";
 
                 //Export TML for the list of object ids received from above call
                 object result = DataAndReportMethods.GetLiveboardData(client, objectId, vizId).Result;

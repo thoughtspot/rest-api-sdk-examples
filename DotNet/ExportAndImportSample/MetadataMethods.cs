@@ -26,7 +26,7 @@ namespace ExportAndImport
 
             var body = new TspublicRestV2MetadataHeaderSearchRequest();
             //Add type of object
-            body.Type = Type10Enum.LIVEBOARD;
+            body.Type = SearchObjectHeaderTypeEnum.LIVEBOARD;
 
             //Include only id in the output
             body.OutputFields = new List<string>();
@@ -37,10 +37,10 @@ namespace ExportAndImport
             body.BatchSize = 5;
 
             //Add the created by name
-            body.CreatedBy = new List<NameAndIdInput>();
+            body.Author = new List<NameAndIdInput>();
             var bodyCreatedBy = new NameAndIdInput();
             bodyCreatedBy.Name = p_name;
-            body.CreatedBy.Add(bodyCreatedBy);
+            body.Author.Add(bodyCreatedBy);
 
             //Send search request based on the inputs above
             object result = await metadataController.SearchObjectHeaderAsync(body);
@@ -71,7 +71,7 @@ namespace ExportAndImport
 
             var body = new TspublicRestV2MetadataTmlExportRequest();
             body.Id = p_id;
-            body.ExportAssociated = ExportAssociatedEnum.True;
+            body.ExportAssociated = ExportObjectTMLExportAssociatedEnum.True;
 
             object result = await metadataController.ExportObjectTMLAsync(body);
 
@@ -85,7 +85,7 @@ namespace ExportAndImport
 
             var body = new TspublicRestV2MetadataTmlImportRequest();
             body.ObjectTML = p_tmls;
-            body.ImportPolicy = ImportPolicyEnum.VALIDATEONLY;
+            body.ImportPolicy = ImportObjectTMLImportPolicyEnum.VALIDATEONLY;
 
             object result = await metadataController.ImportObjectTMLAsync(body);
 

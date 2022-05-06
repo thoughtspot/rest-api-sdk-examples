@@ -15,22 +15,18 @@ namespace UserGroupCrud
     class UserMethods : ControllerBase
     {
 
-        public async Task<List<string>> SearchActiveUsers(RESTAPISDKClient p_client)
+        public async Task<object> SearchActiveUsers(RESTAPISDKClient p_client)
         {
             UserController userController = p_client.UserController;
 
             var body = new TspublicRestV2UserSearchRequest();
-            body.State = StateEnum.ACTIVE;
+            body.State = SearchUsersStateEnum.ACTIVE;
+            body.OutputFields = new List<string>();
+            body.OutputFields.Add("name");
 
-            List<UserResponse> result = await userController.SearchUsersAsync(body);
-
-            List<string> v_Name = new List<string>();
-
-            for (var i = 0; i < result.Count; i++)
-            {
-                v_Name.Add(result[i].Name);
-            }
-            return v_Name;
+            object result = await userController.SearchUsersAsync(body);
+            
+            return result;
         }
 
         public async Task<List<UserResponse>> CreateNewUser(RESTAPISDKClient p_client, List<TspublicRestV2UserCreateRequest> p_users)

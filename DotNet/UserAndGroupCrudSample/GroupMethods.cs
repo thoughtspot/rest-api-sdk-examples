@@ -39,12 +39,12 @@ namespace UserGroupCrud
                     var body = new TspublicRestV2GroupCreateRequest();
                     body.Name = v_name;
                     body.DisplayName = p_name;
-                    body.Visibility = Visibility3Enum.DEFAULT;
-                    body.Privileges = new List<PrivilegeEnum>();
-                    body.Privileges.Add(PrivilegeEnum.DEVELOPER);
-                    body.Privileges.Add(PrivilegeEnum.DATAMANAGEMENT);
-                    body.Privileges.Add(PrivilegeEnum.EXPERIMENTALFEATUREPRIVILEGE);
-                    body.Type = Type5Enum.LOCALGROUP;
+                    body.Visibility = CreateGroupVisibilityEnum.DEFAULT;
+                    body.Privileges = new List<CreateGroupPrivilegesEnum>();
+                    body.Privileges.Add(CreateGroupPrivilegesEnum.DEVELOPER);
+                    body.Privileges.Add(CreateGroupPrivilegesEnum.DATAMANAGEMENT);
+                    body.Privileges.Add(CreateGroupPrivilegesEnum.EXPERIMENTALFEATUREPRIVILEGE);
+                    body.Type = CreateGroupTypeEnum.LOCALGROUP;
 
                     result = await groupController.CreateGroupAsync(body);
                 }

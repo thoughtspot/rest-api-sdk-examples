@@ -28,7 +28,7 @@ namespace UserGroupCrud
             var body = new TspublicRestV2SessionGettokenRequest();
             body.UserName = p_UserName;
             body.Password = p_Password;
-            body.AccessLevel = AccessLevelEnum.FULL;
+            body.AccessLevel = GetTokenAccessLevelEnum.FULL;
             body.TokenExpiryDuration = "6000";
 
             SessionLoginResponse result = await sessionController.GetTokenAsync(body);

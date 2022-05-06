@@ -23,7 +23,7 @@ namespace DataAndReportExport
         {
             var body = new TspublicRestV2DataLiveboardRequest();
             body.Id = p_id;
-            body.FormatType = FormatType1Enum.FULL;
+            body.FormatType = LiveboardDataFormatTypeEnum.FULL;
 
             if (p_vizId != null)
             {

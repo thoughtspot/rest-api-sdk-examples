@@ -27,7 +27,6 @@ namespace UserGroupCrud
         public const string v_UserName = "testuser";
         public const string v_Password = "testpassword";
 
-
         static void Main(string[] args)
         {
 
@@ -39,14 +38,10 @@ namespace UserGroupCrud
                 //List the active users in the cluster
 
                 var UserMethods = new UserMethods();
-                List<string> v_Name = UserMethods.SearchActiveUsers(client).Result;
+                object v_Name = UserMethods.SearchActiveUsers(client).Result;
                 Console.Write("List of users: \n ");
 
-
-                foreach (var Name in v_Name)
-                {
-                    Console.Write("{0} \n\n", Name);
-                }
+                Console.Write("{0} \n\n", v_Name.ToString());
 
                 //Create new users
 
