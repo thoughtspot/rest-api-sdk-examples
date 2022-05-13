@@ -2,14 +2,12 @@ import {
   Client,
   DataController,
   DEFAULT_CONFIGURATION,
-  ExportAssociatedEnum,
-  FormatType1Enum,
-  FormatTypeEnum,
+  LiveboardDataFormatTypeEnum,
   MetadataController,
-  OrientationEnum,
+  PdfOptionsInputOrientationEnum,
   ReportController,
-  Type10Enum,
-  Type16Enum,
+  LiveboardReportTypeEnum,
+  SearchObjectHeaderTypeEnum,
 } from "@thoughtspot/rest-api-sdk";
 import { useEffect, useState } from "react";
 import "../App.css";
@@ -26,7 +24,7 @@ const DataAndReports = () => {
   const getLiveboards = async () => {
     const metadataController = new MetadataController(client);
     const liveBoards: any = await metadataController.searchObjectHeader({
-      type: Type10Enum.LIVEBOARD,
+      type: SearchObjectHeaderTypeEnum.LIVEBOARD,
     });
     setLiveBoards(liveBoards.result.headers);
   };
@@ -65,7 +63,7 @@ const DataAndReports = () => {
     const dataController = new DataController(client);
     const exportLiveBoardData: any = await dataController.liveboardData({
       id: selectedLiveBoards[0].toString(),
-      formatType: FormatType1Enum.FULL,
+      formatType: LiveboardDataFormatTypeEnum.FULL,
     });
     const fileName = getLiveBoardName();
     const element = document.createElement("a");
@@ -90,9 +88,9 @@ const DataAndReports = () => {
     let ids:[String] = selectedLiveBoards[0].toString()
     const exportLiveBoardData: any = await reportController.liveboardReport({
       id: [selectedLiveBoards[0]].toString(),
-      type: Type16Enum.PDF,
+      type: LiveboardReportTypeEnum.PDF,
       pdfOptions: {
-        orientation: OrientationEnum.LANDSCAPE,
+        orientation: PdfOptionsInputOrientationEnum.LANDSCAPE,
       },
     });
     const fileName = getLiveBoardName();

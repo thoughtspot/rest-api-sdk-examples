@@ -1,11 +1,11 @@
 import {
   Client,
   DEFAULT_CONFIGURATION,
-  ExportAssociatedEnum,
-  FormatTypeEnum,
-  ImportPolicyEnum,
+  ExportObjectTMLExportAssociatedEnum,
+  ExportObjectTMLFormatTypeEnum,
+  ImportObjectTMLImportPolicyEnum,
   MetadataController,
-  Type10Enum,
+  SearchObjectHeaderTypeEnum,
 } from "@thoughtspot/rest-api-sdk";
 import { useEffect, useState } from "react";
 import "../App.css";
@@ -24,7 +24,7 @@ const ExportAndImport = () => {
   const getLiveboards = async () => {
     const metadataController = new MetadataController(client);
     const liveBoards: any = await metadataController.searchObjectHeader({
-      type: Type10Enum.LIVEBOARD,
+      type: SearchObjectHeaderTypeEnum.LIVEBOARD,
     });
     setLiveBoards(liveBoards.result.headers);
   };
@@ -61,8 +61,8 @@ const ExportAndImport = () => {
     let selectedLiveboard = selectedLiveBoards[0].toString();
     const exportLiveBoardData: any = await metadataController.exportObjectTML({
       id: [selectedLiveboard.toString()],
-      formatType: FormatTypeEnum.YAML,
-      exportAssociated: ExportAssociatedEnum.True,
+      formatType: ExportObjectTMLFormatTypeEnum.YAML,
+      exportAssociated: ExportObjectTMLExportAssociatedEnum.True,
     });
     let fileName = getLiveBoardName();
     const element = document.createElement("a");
@@ -101,7 +101,7 @@ const ExportAndImport = () => {
     const metadataController = new MetadataController(client);
     const importLiveboardData: any = await metadataController.importObjectTML({
       objectTML: [edocList.toString()],
-      importPolicy: ImportPolicyEnum.PARTIAL,
+      importPolicy: ImportObjectTMLImportPolicyEnum.PARTIAL,
     });
     if (importLiveboardData.statusCode.toString() === '200') {
       alert("Successfully imported the objects in TML");

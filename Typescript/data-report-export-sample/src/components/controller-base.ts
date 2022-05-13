@@ -1,5 +1,5 @@
 import {
-  AccessLevelEnum,
+  GetTokenAccessLevelEnum,
   Client,
   DEFAULT_CONFIGURATION,
   SessionController,
@@ -30,7 +30,7 @@ const ControllerBase = async () => {
   const tokenRes = await sessionController.getToken({
     userName: TS_DEFAULT_CONFIG.USERNAME,
     password: TS_DEFAULT_CONFIG.PASSWORD,
-    accessLevel: AccessLevelEnum.FULL,
+    accessLevel: GetTokenAccessLevelEnum.FULL,
   });
   return tokenRes.result.token?.toString();
 };
